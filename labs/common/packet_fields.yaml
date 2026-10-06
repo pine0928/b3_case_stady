@@ -1,0 +1,14 @@
+display_filter: "ip && (tcp || udp)"
+fields:
+  - {name: frame.time_epoch, attribute: timestamp, type: float}
+  - {name: ip.src, attribute: src_ip, type: str}
+  - {name: ip.dst, attribute: dst_ip, type: str}
+  - {name: ip.proto, attribute: protocol, type: protocol}
+  - {name: ip.len, attribute: ip_length, type: int}
+  - {name: tcp.srcport, attribute: tcp_src_port, type: optional_int}
+  - {name: tcp.dstport, attribute: tcp_dst_port, type: optional_int}
+  - {name: tcp.len, attribute: tcp_payload_length, type: optional_int}
+  - {name: tcp.flags, attribute: tcp_flags, type: optional_int}
+  - {name: udp.srcport, attribute: udp_src_port, type: optional_int}
+  - {name: udp.dstport, attribute: udp_dst_port, type: optional_int}
+  - {name: udp.length, attribute: udp_length, type: optional_int}

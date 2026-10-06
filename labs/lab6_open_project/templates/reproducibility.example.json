@@ -1,0 +1,11 @@
+{
+  "capture": {"name": "", "sha256": "", "provenance": ""},
+  "code_revision": "",
+  "environment": {"python": "", "packages": ""},
+  "split": {"policy": "", "unit": "", "seed": 0},
+  "random_seeds": [0],
+  "preprocessing": {"flow": "", "session": "", "burst": ""},
+  "raw_observable_budget": [],
+  "representation_budget": {},
+  "notes": ""
+}
