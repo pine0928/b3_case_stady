@@ -89,7 +89,7 @@ The hierarchical graph therefore has 8 nodes and 11 edges:
 A useful audit is to delete `p2 -> p3`: packet observations remain, but that chronological adjacency is no longer explicit in topology. Another is to delete all `member_of` edges: packet and burst nodes remain, but the cross-level hierarchy disappears.
 
 ## Public-test alignment
-The public test verifies graph dataclasses and required builder APIs. The specification fixes node IDs/types, relation names, provenance expectations, and tiny-example structure. Instructor/hidden tests verify exact edges, counts, provenance, relation features, and design-audit perturbations.
+The public tests first check API availability, then assess packet-chain and burst topology, node and edge features, provenance, hierarchical membership, observable budgets, information loss, empty/single-packet cases, and invalid burst partitions. Instructor-only tests additionally assess graph design perturbations and richer invariants. A public-test PASS does not establish that a graph outperforms matched-information non-graph baselines.
 
 ## Lecture-material boundary
 Lecture/seminar material asks whether a relation deserves to be explicit, whether the same relation can be represented by sequence masks/attention, and whether dynamic/learned graphs are justified. The baseline specification gives three reproducible starting designs; open-ended graph novelty begins only after those are understood.

@@ -1,10 +1,10 @@
 """Step 1: print a shell command that materializes TShark output as TSV."""
-from .common import FIELDS
+from .common import FIELDS, SPEC
 
 def main():
     parts = [
         "tshark -n -r labs/data/canonical_smoke.pcap",
-        "-Y 'ip && (tcp || udp) && !ip.flags.mf && ip.frag_offset == 0'",
+        f"-Y '{SPEC.display_filter}'",
         "-T fields",
     ]
     parts += [f"-e {field}" for field in FIELDS]

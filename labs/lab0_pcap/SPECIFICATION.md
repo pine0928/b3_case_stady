@@ -15,6 +15,9 @@ ip && (tcp || udp) && ip.flags.mf == 0 && ip.frag_offset == 0
 IPv6, IP reassembly, application parsing, inner VPN traffic, and QUIC stream
 semantics are outside the baseline.
 
+## Canonical definitions
+The observation unit is one unfragmented IPv4 TCP/UDP packet selected by the YAML FieldSpec. A PacketRecord stores decoded packet metadata, not an application session or a ground-truth label.
+
 ## TShark field contract
 The TSV columns, in order, are:
 
@@ -47,13 +50,18 @@ Empty transport columns mean "not applicable", not numeric zero.
 If `frame.cap_len < frame.len`, reject the row as snaplen-truncated rather than
 silently treating the capture as complete.
 
-## `parse_tshark_row(line) -> PacketRecord`
+## Function contracts
+
+### `parse_tshark_row(line) -> PacketRecord`
 Reject rows with the wrong number of TSV columns, unsupported IP protocol, or
 snaplen truncation.  Do not infer flow direction or derive IAT here.
 
-## `inter_arrival_times(records) -> list[float]`
+### `inter_arrival_times(records) -> list[float]`
 Sort by timestamp ascending.  Empty input returns `[]`; the first IAT is `0.0`;
 subsequent IATs are `max(0, t_i - t_{i-1})`.
+
+## Edge cases and failure modes
+Reject malformed TSV rows, unsupported protocol numbers, and snaplen-truncated captures. Empty transport-specific columns are expected; an absent required value is not silently converted to zero. Empty record lists produce empty IAT lists.
 
 ## Tiny worked example
 For timestamps `1.050, 1.000, 1.020`, timestamp ordering gives
@@ -68,3 +76,9 @@ The specification defines what is observed and how it enters `PacketRecord`.
 Whether IP addresses, ports, timing, lengths, or other observations should be
 used as model inputs remains a scientific design decision documented in the
 Lab 0 report.
+
+## Public-test alignment
+Public tests exercise the student-facing API and representative valid/invalid rows. Passing them does not establish capture completeness or scientific validity; the exact FieldSpec and worked example remain authoritative.
+
+## Lecture-material boundary
+Wireshark/TShark observation, IPv4 header fields, TCP/UDP fields, and timestamp interpretation are prerequisites. Binary PCAP parsing and advanced stream reconstruction are not required in Lab 0.

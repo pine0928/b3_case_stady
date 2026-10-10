@@ -71,7 +71,7 @@ Falsifier: if matched sequence + burst-segment mask matches the hierarchy result
 This is a valid project even if the final result shows no improvement.
 
 ## Public-test alignment
-The public test verifies that required templates/validator exist. `validate_submission.py` checks required files/directories and reproducibility keys. It intentionally does not grade scientific quality. Milestone reviews and the final seminar apply the rubric to reasoning/evidence.
+The public test verifies that required templates/validator exist. `validate_submission.py` checks required files/directories, nonempty documents, templates that have not been edited, and nonempty required top-level reproducibility keys. It does not assess scientific correctness or whether metadata values are truthful. It intentionally does not grade scientific quality. Milestone reviews and the final seminar apply the rubric to reasoning/evidence.
 
 ## Lecture-material boundary
 Briefings provide examples of good research questions, baselines, falsification, graph novelty taxonomy, and claim boundaries. The specification fixes deliverables and minimum controls while leaving the student's hypothesis, representation, and outcome open.

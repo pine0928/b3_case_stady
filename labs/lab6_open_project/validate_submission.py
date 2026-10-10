@@ -17,9 +17,17 @@ REQUIRED_META = ["capture", "code_revision", "environment", "split", "random_see
 
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
+    template_dir = Path(__file__).resolve().parent / "templates"
     for name in REQUIRED_DOCS:
-        if not (root / name).is_file():
+        target = root / name
+        if not target.is_file():
             errors.append(f"missing required file: {name}")
+        elif name.endswith(".md"):
+            content = target.read_text(encoding="utf-8").strip()
+            if not content:
+                errors.append(f"empty required document: {name}")
+            elif (template_dir / name).is_file() and content == (template_dir / name).read_text(encoding="utf-8").strip():
+                errors.append(f"unchanged template: {name}")
     meta_path = root / "reproducibility.json"
     if meta_path.is_file():
         try:
@@ -27,9 +35,14 @@ def validate(root: Path) -> list[str]:
         except Exception as exc:
             errors.append(f"invalid reproducibility.json: {exc}")
         else:
-            for key in REQUIRED_META:
-                if key not in meta:
-                    errors.append(f"missing reproducibility key: {key}")
+            if not isinstance(meta, dict):
+                errors.append("reproducibility.json must be a JSON object")
+            else:
+                for key in REQUIRED_META:
+                    if key not in meta:
+                        errors.append(f"missing reproducibility key: {key}")
+                    elif meta[key] in (None, "", [], {}):
+                        errors.append(f"empty reproducibility key: {key}")
     for dirname in ["src", "results"]:
         if not (root / dirname).is_dir():
             errors.append(f"missing required directory: {dirname}/")

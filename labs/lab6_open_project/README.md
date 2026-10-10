@@ -28,11 +28,13 @@ Proceed in this order and freeze each design decision before the next stage wher
 Use the relevant Lab 0-5 public tests plus the submission validator:
 
 ```bash
-python -m pytest -q tests_public
+python -m pytest -q tests_public/test_lab6_contract.py
 python -m labs.lab6_open_project.validate_submission lab6_submission
 ```
 
-Passing the validator checks package completeness, not research validity.
+The first command checks the Lab 6 tooling; it can pass before you begin your project. The second checks **your submission** and should fail until the required artifacts are completed. Copy the five Markdown templates and `reproducibility.example.json` into `lab6_submission/`, rename the JSON file to `reproducibility.json`, create `src/` and `results/`, and fill the documents and metadata. An unchanged template, an empty document, or an empty required top-level metadata value fails the validator. The validator cannot judge whether the content is scientifically sound.
+
+`python -m pytest -q tests_public` runs **all Labs' tests** and may fail because earlier student starters are still incomplete; use the Lab 6-specific command above for this milestone.
 
 ## What to Submit
 ```text

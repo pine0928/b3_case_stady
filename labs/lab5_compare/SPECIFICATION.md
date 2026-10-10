@@ -73,7 +73,10 @@ Budgets match. If B adds `src_port`, the comparison is no longer matched and `as
 Suppose a graph relation block improves linear Macro-F1. Before calling this a graph advantage, compute the same adjacent-packet relation summary directly from the ordered sequence. If the non-graph control reproduces the vector and score, the supported conclusion is "explicit relation engineering helps this learner on this toy task", not "graphs are intrinsically superior".
 
 ## Public-test alignment
-Public tests check the canonical observable set and that the supplied dataset/harness can execute a simple vectorizer. They do not certify fairness of the student's full experiment. Seminar/report review plus instructor tests inspect budget matching, controls, dimensions, seeds, leakage, and interpretation.
+Public environment tests check the canonical observable set and that the supplied dataset/harness can execute a simple vectorizer. Public student tests check observable-budget handling, mismatched-budget rejection, fixed finite vector dimensions, and the interpretation-label vocabulary. They do not certify fairness of the student's full experiment. Seminar/report review plus instructor tests inspect budget matching, controls, dimensions, seeds, leakage, and interpretation.
 
 ## Lecture-material boundary
 Lecture/seminar material covers causal interpretation, fairness, confounding, robustness, and why a result can be scientifically useful even when the proposed representation loses. The specification defines minimum experimental controls, not a target accuracy.
+
+## Horizon and retention caveat
+Equal raw field names do not ensure equal information exposure: first-k packet truncation and full-flow statistics have different observation horizons. Record packet retention/horizon for each comparison, or match horizons explicitly before attributing an effect to representation.

@@ -28,7 +28,11 @@ For every edge type document semantics, provenance, raw observables used, what b
 
 ## How to Test
 ```bash
-python -m pytest -q tests_public
+# Before implementation: API check should PASS; behavior tests should FAIL (RED)
+python -m pytest -q tests_public/test_lab4_contract.py -k api_available
+python -m pytest -q tests_public/test_lab4_contract.py
+# After implementation: all Lab 4 tests should PASS (GREEN)
+python -m pytest -q tests_public/test_lab4_contract.py
 ```
 
 ## What to Submit

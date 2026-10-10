@@ -90,7 +90,10 @@ Flow     --structure--> one or more Bursts
 A Burst boundary does not create a new Flow. A Flow timeout does.
 
 ## Public-test alignment
-The public test checks the required API. The worked example and Golden Trace worksheet are the human-readable behavior contract. The public contract also checks that `iter_flows` is a generator function. Passing an API test alone does not prove semantic correctness or bounded-memory behavior.
+The API smoke tests check required entry points. `test_lab1_student.py` checks behavior (and intentionally fails for an untouched starter). The worked example and Golden Trace worksheet are the human-readable behavior contract. The public contract also checks that `iter_flows` is a generator function. Passing an API test alone does not prove semantic correctness or bounded-memory behavior.
 
 ## Terminology guardrail
 The Core course deliberately does **not** call timeout-separated 5-tuple segments `Session`. In networking literature, session can mean many different protocol/application concepts. Here we use the more precise terms **FlowKey**, **Flow**, and **Burst**.
+
+## Lecture-material boundary
+The baseline assumes students understand 5-tuples, packet timestamps, and the distinction between observed packets and complete connections. TCP FIN/RST state machines, retransmission inference, and application sessions are outside the Lab 1 baseline.

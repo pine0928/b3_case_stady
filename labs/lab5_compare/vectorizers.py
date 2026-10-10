@@ -89,6 +89,8 @@ def _edge_relation_summary(graph) -> list[float]:
 
 
 def vectorize_packet_chain_graph(flow, include_relations: bool = True) -> np.ndarray:
+    if not flow.packets:
+        raise ValueError("graph vectorization requires at least one packet")
     graph = packet_chain_graph(flow)
     # Node block deliberately matches the same packet observables used by the
     # packet-sequence representation, but discards position after aggregation.
@@ -99,6 +101,8 @@ def vectorize_packet_chain_graph(flow, include_relations: bool = True) -> np.nda
 
 
 def vectorize_hierarchical_graph(flow, include_relations: bool = True) -> np.ndarray:
+    if not flow.packets:
+        raise ValueError("graph vectorization requires at least one packet")
     bursts = direction_only_bursts(flow)
     graph = packet_burst_hierarchical_graph(flow, bursts)
     packet_rows = np.asarray([n.features for n in graph.nodes if n.node_type == "packet"], dtype=np.float64)

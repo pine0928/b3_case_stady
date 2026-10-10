@@ -31,9 +31,19 @@ Implement in `starter.py`:
 Make padding/truncation explicit. Use masks or retained/dropped counts. Do not fit normalization statistics on validation/test data or padded rows. Hand-check at least one tiny flow against expected values.
 
 ## How to Test
+Run from the **Course repository root**:
+
 ```bash
-python -m pytest -q tests_public
+# API discovery passes before implementing the exercise.
+python -m pytest -q tests_public/test_lab3_contract.py -k api
+# Assessed behavior tests intentionally fail on the untouched starter.
+python -m pytest -q tests_public/test_lab3_contract.py
 ```
+
+After finishing earlier Labs, run the entire Course suite with
+`python -m pytest -q tests_public`. Verify all four representation families,
+including hierarchy padding and packet-loss accounting. A passing API test
+alone does **not** mean the exercise is complete.
 
 ## What to Submit
 - `labs/lab3_nongraph/starter.py`

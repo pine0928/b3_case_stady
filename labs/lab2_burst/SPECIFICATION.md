@@ -71,7 +71,15 @@ B3=(p5),    direction=+1
 If the recommended IAT-aware rule uses `max_gap=0.01`, every non-first packet has a larger gap in this fixture, so the result is five one-packet bursts.
 
 ## Public-test alignment
-The public test checks the required API. The specification and report require semantic checks beyond API presence. Instructor/hidden tests verify the canonical direction-only partition and at least one threshold-sensitive alternative behavior.
+The public tests have separate API and task checks. The API check passes on the
+untouched starter; the task checks intentionally fail until implementation.
+The task checks verify the direction-only partition (including empty and
+single-packet cases, maximal runs, long gaps, and packet identity/order) and
+basic partition integrity for the student-designed alternative. The alternative
+is **not** required to implement the suggested IAT threshold: its exact
+segmentation rule and a changed boundary must be justified in the report.
+Instructor tests also verify the IAT-aware *reference example*, not every
+permitted student alternative.
 
 ## Lecture-material boundary
 Lecture/seminar material discusses why bursts can approximate interaction phases and why ACK handling, timeout choice, encrypted protocols, and application multiplexing complicate the notion. The specification defines the baseline partition; it does not declare one burst definition scientifically superior.

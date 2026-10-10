@@ -105,7 +105,7 @@ B3: (+1, 1, 110, .000, .430)
 Statistical vector starts `(5,3,2,500,330,170,...)`, has flow duration `.500`, and direction-switch count `2`.
 
 ## Public-test alignment
-The public test verifies the dataclass/API surface. The specification fixes feature order, shape, masks, and truncation semantics. Instructor/hidden tests verify exact tiny-example values, partition checks, and padding/truncation accounting.
+The public API test checks function discovery and passes before implementation. Public assessed tests check numerical values, feature order, masks, head truncation, exact burst partition, padding/loss accounting, and invalid limits. The untouched starter intentionally fails assessed tests. Public tests are not exhaustive; the report must still explain information loss, observational budget, and train-only normalization.
 
 ## Lecture-material boundary
 Lecture/seminar material asks which representation is a sensible inductive bias, what information loss may be beneficial, and how early classification changes input budgets. The specification only freezes transformations so later comparisons are reproducible.

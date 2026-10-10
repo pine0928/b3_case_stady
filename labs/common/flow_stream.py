@@ -115,7 +115,11 @@ def iter_completed_flows(
             reason = TerminationReason.TCP_FIN if state.closing else TerminationReason.IDLE_TIMEOUT
             yield state.finish(reason)
 
+    previous_timestamp = None
     for packet in records:
+        if previous_timestamp is not None and packet.timestamp < previous_timestamp:
+            raise ValueError("packet timestamps must be nondecreasing in capture order")
+        previous_timestamp = packet.timestamp
         now = packet.timestamp
         yield from expire_due(now)
 

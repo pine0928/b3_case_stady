@@ -5,6 +5,7 @@ exist for tests, instructor demos, and reproducible expected outputs.
 """
 from __future__ import annotations
 
+import ipaddress
 from collections import defaultdict
 from typing import Iterable
 
@@ -26,38 +27,28 @@ def endpoint(packet: PacketRecord, source: bool) -> tuple:
     return (packet.dst_ip, packet.dst_port)
 
 
+def _endpoint_sort_key(ep: tuple) -> tuple:
+    ip, port = ep
+    address = ipaddress.ip_address(ip)
+    return (address.version, int(address), -1 if port is None else port)
+
+
 def canonical_flow_key(packet: PacketRecord) -> tuple:
-    """Canonical bidirectional key, independent of first observed direction."""
-    a = endpoint(packet, True)
-    b = endpoint(packet, False)
-    lo, hi = sorted((a, b), key=lambda x: (x[0], -1 if x[1] is None else x[1]))
+    """Canonical bidirectional 5-tuple; compare numeric IP addresses."""
+    a, b = endpoint(packet, True), endpoint(packet, False)
+    lo, hi = sorted((a, b), key=_endpoint_sort_key)
     return (packet.protocol, lo, hi)
 
 
-def _flow_forward_endpoint(records: list[PacketRecord]) -> tuple:
-    """Baseline FW convention: source endpoint of earliest packet in the flow."""
-    first = min(records, key=lambda p: p.timestamp)
-    return endpoint(first, True)
+def build_flows(records: Iterable[PacketRecord], inactivity_timeout: float = 30.0) -> list[Flow]:
+    """Materialize canonical Lab-1 idle-timeout flow occurrences.
 
+    Capture order is authoritative; timestamps must be nondecreasing.
+    For TCP FIN/RST-aware termination use flow_stream.iter_completed_flows.
+    """
+    from .flow_baseline import iter_idle_flows
+    return list(iter_idle_flows(records, inactivity_timeout))
 
-def build_flows(records: Iterable[PacketRecord]) -> list[Flow]:
-    groups: dict[tuple, list[PacketRecord]] = defaultdict(list)
-    for record in records:
-        groups[canonical_flow_key(record)].append(record)
-
-    flows: list[Flow] = []
-    for key in sorted(groups, key=repr):
-        ordered = sorted(groups[key], key=lambda p: p.timestamp)
-        forward = _flow_forward_endpoint(ordered)
-        directed: list[DirectedPacket] = []
-        prev_ts = None
-        for p in ordered:
-            direction = +1 if endpoint(p, True) == forward else -1
-            iat = 0.0 if prev_ts is None else max(0.0, p.timestamp - prev_ts)
-            directed.append(DirectedPacket(packet=p, direction=direction, iat=iat))
-            prev_ts = p.timestamp
-        flows.append(Flow(key=key, packets=directed))
-    return flows
 
 
 def direction_only_bursts(flow: Flow) -> list[Burst]:

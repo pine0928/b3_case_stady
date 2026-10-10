@@ -24,13 +24,14 @@ Before coding, read `labs/lab5_compare/SPECIFICATION.md`. It is the authoritativ
 - your Lab 3/4 representation reports
 
 ## What to Do
-1. Implement the budget checks in `starter.py`.
-2. Vectorize at least one non-graph and one graph/hierarchical representation using the same raw observables.
-3. Compare them under a common learner.
-4. Hold representation fixed and compare learner capacity.
-5. Include at least one representation/edge ablation.
-6. Check scaling, seed, split/leakage, input dimension, and parameter count.
-7. State what the result can and cannot support.
+1. Implement the four functions in `starter.py`: budget declaration, budget equality, a finite fixed-dimensional vectorizer, and a conservative interpretation label. Run the Lab 5 student tests; they should fail before implementation and pass afterward.
+2. Record the exact observable budget and observation horizon for each representation; matching field names alone does not imply matched retention/horizon.
+3. Vectorize at least one non-graph and one graph/hierarchical representation using the same raw observables.
+4. Compare them under a common learner.
+5. Hold representation fixed and compare learner capacity.
+6. Include at least one representation/edge ablation.
+7. Check scaling, seed, split/leakage, input dimension, and parameter count.
+8. State what the result can and cannot support.
 
 Minimal harness pattern:
 ```python
@@ -45,7 +46,8 @@ print(result)
 
 ## How to Test
 ```bash
-python -m pytest -q tests_public
+python -m pytest -q tests_public/test_lab5_contract.py  # environment and harness (PASS before implementation)
+python -m pytest -q tests_public/test_lab5_student.py   # your implementation (RED -> GREEN)
 ```
 
 ## What to Submit
@@ -64,3 +66,6 @@ The public contract passes, at least one matched-information comparison and one 
 **You may claim:** only effects that survive the controls actually run under the documented synthetic/experimental setting.
 
 **You may not claim:** intrinsic graph superiority, general real-world superiority, or causal attribution from a single score comparison.
+
+## Test interpretation
+The public student tests verify only the starter interface and basic vector validity; they do **not** establish experimental fairness, correct causal attribution, absence of all leakage, or reproducibility. The full comparison, controls, seed/split records, and conclusions must be demonstrated in the report and seminar.

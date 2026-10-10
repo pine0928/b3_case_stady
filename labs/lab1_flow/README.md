@@ -53,9 +53,21 @@ build_flows(records, timeout) == list(iter_flows(records, timeout))
 A generator alone does **not** guarantee bounded memory. The important design question is what state must remain active for future packets and what can be yielded and discarded.
 
 ## How to test
+Run the environment/API checks before implementation (these should PASS):
+
 ```bash
-python -m pytest -q tests_public
+python -m pytest -q tests_public/test_lab1_contract.py
 ```
+
+Run the Lab 1 behavior checks as you implement Part 1A and Part 1B (these are
+**expected to FAIL** for an untouched starter and PASS when it is complete):
+
+```bash
+python -m pytest -q tests_public/test_lab1_student.py
+```
+
+Run `python -m pytest -q tests_public` after completing all assigned Labs;
+unfinished later Labs may have intentionally failing behavior tests.
 
 ## What to submit
 - `labs/lab1_flow/starter.py`
@@ -71,3 +83,6 @@ You can reproduce the Golden Trace by hand; Part 1A and Part 1B have the same Fl
 **You may claim:** your documented rules deterministically construct observed Flow instances from supported packet observations.
 
 **You may not claim:** that a 5-tuple uniquely identifies an application interaction, that an observed Flow is necessarily the complete ground-truth TCP connection, that FW always means client-to-server, or that a Python generator by itself guarantees bounded memory.
+
+## Implementation Specification
+See `labs/lab1_flow/SPECIFICATION.md` for the canonical function contracts and boundary conditions. The student-facing release README is maintained in `tools/release/assets/readmes/lab1_README.md`.

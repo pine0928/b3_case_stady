@@ -1,4 +1,4 @@
-display_filter: "ip && (tcp || udp)"
+display_filter: "ip && (tcp || udp) && ip.flags.mf == 0 && ip.frag_offset == 0"
 fields:
   - {name: frame.time_epoch, attribute: timestamp, type: float}
   - {name: ip.src, attribute: src_ip, type: str}
@@ -12,3 +12,5 @@ fields:
   - {name: udp.srcport, attribute: udp_src_port, type: optional_int}
   - {name: udp.dstport, attribute: udp_dst_port, type: optional_int}
   - {name: udp.length, attribute: udp_length, type: optional_int}
+  - {name: frame.cap_len, attribute: captured_frame_length, type: int}
+  - {name: frame.len, attribute: original_frame_length, type: int}

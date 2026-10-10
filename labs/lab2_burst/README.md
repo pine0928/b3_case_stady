@@ -22,9 +22,22 @@ Before coding, read `labs/lab2_burst/SPECIFICATION.md`. It is the authoritative 
 5. State what packet-level information is lost when you summarize a burst.
 
 ## How to Test
+Run these commands from the **Course repository root**:
+
 ```bash
-python -m pytest -q tests_public
+# First, confirm the public test module is discoverable (passes on the starter).
+python -m pytest -q tests_public/test_lab2_contract.py -k api
+# After implementing the two functions, run the assessed behavior tests.
+python -m pytest -q tests_public/test_lab2_contract.py
 ```
+
+The second command **intentionally fails on the untouched starter**. Passing
+API discovery is not evidence of completion. The canonical direction-only
+partition is checked for empty/single flows, maximal runs, packet preservation,
+and gaps. The alternative is student-designed: public tests check partition
+integrity; the report must justify its rule, parameters, and changed boundaries.
+The complete Course suite can be run after completing earlier Labs:
+`python -m pytest -q tests_public`.
 
 ## What to Submit
 - `labs/lab2_burst/starter.py`

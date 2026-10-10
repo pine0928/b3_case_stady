@@ -161,9 +161,9 @@ Run:
 python -m labs.tutorials.python_streaming_steps.step6_generator labs/data/canonical_smoke.pcap
 ```
 
-Compare these designs:
+Compare these illustrative sketches (pseudocode, not directly runnable Python):
 
-```python
+```text
 def load_everything(...):
     records = []
     ...
@@ -173,7 +173,7 @@ def load_everything(...):
 
 and
 
-```python
+```text
 def iter_records(...):
     ...
     yield record

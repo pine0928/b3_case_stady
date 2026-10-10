@@ -25,6 +25,10 @@ def parse_tshark_row(line: str, spec: FieldSpec) -> PacketRecord:
     if len(cols) != len(spec.fields):
         raise ValueError(f"Expected {len(spec.fields)} TShark fields, got {len(cols)}: {line!r}")
     row = {field.attribute: value for field, value in zip(spec.fields, cols)}
+    captured = int(row["captured_frame_length"])
+    original = int(row["original_frame_length"])
+    if captured < original:
+        raise ValueError("snaplen-truncated frame is outside the baseline")
     proto = int(row["protocol"])
     if proto == 6:
         protocol, src_port, dst_port = "TCP", _optional_int(row["tcp_src_port"]), _optional_int(row["tcp_dst_port"])
