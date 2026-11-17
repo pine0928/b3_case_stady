@@ -4,20 +4,6 @@
 
 | Field | Observed / Derived / Metadata | Use as model input? | Reason |
 |---|---|---|---|
-| timestamp | observed | | |
-| source/destination IP | # Lab 0 Pre-lab Plan (optional preparation; not the final report)
-
-## 1. Candidate packet fields
-
-| Field | Observed / Derived / Metadata | Use as model input? | Reason |
-|---|---|---|---|
-| timestamp | observed | | |
-| source/destination IP | # Lab 0 Pre-lab Plan (optional preparation; not the final report)
-
-## 1. Candidate packet fields
-
-| Field | Observed / Derived / Metadata | Use as model input? | Reason |
-|---|---|---|---|
 | timestamp | observed | No | Absolute timestamps may reflect capture time or dataset-specific conditions rather than network behavior.|
 | source/destination IP | observed | No | IP addresses may allow the model to memorize endpoints and exploit dataset-specific shortcuts. |
 | source/destination port | observed | No | Port numbers may reveal application or service identities and cause shortcut learning.1~Port numbers may reveal application or service identities and cause shortcut learning. |
